@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get("welcome", function () {
     return view('welcome');
 });
+Route::get("", function () {
+    $data = [
+        'activeMenu' => 0
+    ];
+    return view('home', $data);
+});
+Route::get("home", function () {
+    $data = [
+        'activeMenu' => 0
+    ];
+    return view('home', $data);
+});
+Route::get("about", function () {
+    $data = [
+        'activeMenu' => 1
+    ];
+    return view('about', $data);
+});
+Route::get("blog", [PostController::class, 'index']);
+Route::get("blog/{post:slug}", [PostController::class, 'show']);
