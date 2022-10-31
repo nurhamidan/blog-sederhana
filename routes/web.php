@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +38,17 @@ Route::get("about", function () {
 });
 Route::get("blog", [PostController::class, 'index']);
 Route::get("blog/{post:slug}", [PostController::class, 'show']);
+Route::get('categories', function () {
+    $data = [
+        'activeMenu' => 3,
+        'categories' => Category::all()
+    ];
+    return view('categories', $data);
+});
+Route::get("categories/{category:slug}", function (Category $category) {
+    $data = [
+        'activeMenu' => -1,
+        'category' => $category
+    ];
+    return view('category', $data);
+});
